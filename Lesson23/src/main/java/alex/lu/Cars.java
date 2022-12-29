@@ -1,11 +1,11 @@
 package alex.lu;
 
-public class CarList {
+public class Cars {
 
     private String car;
     private String model;
 
-    public CarList(String car, String model) {
+    public Cars(String car, String model) {
         this.car = car;
         this.model = model;
     }

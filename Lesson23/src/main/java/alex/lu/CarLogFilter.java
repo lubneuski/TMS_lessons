@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter("/car")
+@WebFilter("/*")
 public class CarLogFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -24,7 +24,6 @@ public class CarLogFilter implements Filter {
                 chain.doFilter(request, response);
             }
     }
-
 
     @Override
     public void destroy() {

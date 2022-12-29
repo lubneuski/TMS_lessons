@@ -1,34 +1,24 @@
+//2:08-listener
+
 package alex.lu;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import static alex.lu.CarStorage.getCars;
 
 @WebServlet("/car")
 public class CarServlet extends HttpServlet {
 
-    private static Map<String, CarList> cars = new HashMap<>();
+    private CarStorage carStorage;
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        cars.put("1", new CarList("Volvo","S90"));
-        cars.put("2", new CarList("Toyota","Avensis"));
-        cars.put("3", new CarList("Geely","Atlas"));
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession();
+        System.out.println("==== Do Service ====");
         LocalDateTime time = LocalDateTime.now();
         Cookie[] cookies = req.getCookies();
         resp.addCookie(new Cookie("mycook", time.format(DateTimeFormatter.ofPattern("dd-MM-yyy_HH:mm:ss"))));
@@ -37,17 +27,24 @@ public class CarServlet extends HttpServlet {
                 System.out.println(cookie.getName() + " " + cookie.getValue());
             }
         }
+        super.service(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         ServletOutputStream sos = resp.getOutputStream();
         sos.println("All Cars Info: ");
-        Set<String> keys = cars.keySet();
-            for (String key:keys){
-                CarList carList = cars.get(key);
-                sos.println(key+" "+carList);
+        getCars().forEach((key, value)->{
+            try {
+                sos.println(key+" "+value);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+        });
 
         String id = req.getParameter("id");
-        CarList carId = cars.get(id);
+        Cars carId = getCars().get(id);
         sos.println(id+" "+carId);
 
 //        req.getRequestDispatcher("/redir.html").forward(req,resp);
@@ -58,7 +55,7 @@ public class CarServlet extends HttpServlet {
         String id = req.getParameter("id");
         String car = req.getParameter("car");
         String model = req.getParameter("model");
-        cars.put(id, new CarList(car,model));
+        getCars().put(id, new Cars(car,model));
     }
 
     @Override
@@ -66,14 +63,14 @@ public class CarServlet extends HttpServlet {
         String id = req.getParameter("id");
         String car = req.getParameter("car");
         String model = req.getParameter("model");
-        cars.put(id, new CarList(car,model));
+        getCars().put(id, new Cars(car,model));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletOutputStream sos = resp.getOutputStream();
         String id = req.getParameter("id");
-        cars.remove(id);
+        getCars().remove(id);
         sos.println();
     }
 }

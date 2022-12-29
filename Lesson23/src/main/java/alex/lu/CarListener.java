@@ -1,24 +1,18 @@
 package alex.lu;
 
-
-import javax.servlet.ServletRequestAttributeEvent;
-import javax.servlet.ServletRequestAttributeListener;
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
-//@WebListener()
-public class CarListener implements ServletRequestAttributeListener {
+@WebListener
+public class CarListener implements HttpSessionListener {
+
     @Override
-    public void attributeAdded(ServletRequestAttributeEvent srae) {
-        String name = srae.getName();
-        Object value = srae.getValue();
-        System.out.println("attr was added "+name+" "+value);
+    public void sessionCreated(HttpSessionEvent se) {
+        System.out.println("==== Session Created! ====");
     }
 
     @Override
-    public void attributeRemoved(ServletRequestAttributeEvent srae) {
-    }
-
-    @Override
-    public void attributeReplaced(ServletRequestAttributeEvent srae) {
+    public void sessionDestroyed(HttpSessionEvent se) {
     }
 }
