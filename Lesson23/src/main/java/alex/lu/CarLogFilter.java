@@ -18,11 +18,11 @@ public class CarLogFilter implements Filter {
         if ("GET".equalsIgnoreCase(metod)) {
             chain.doFilter(request, response);
         }
-            if (head == null) {
-                throw new ServletException("Enter 'Param'");
-            } else {
-                chain.doFilter(request, response);
-            }
+        if (head == null) {
+            throw new ServletException("Enter 'Param'");
+        } else {
+            chain.doFilter(request, response);
+        }
     }
 
     @Override
