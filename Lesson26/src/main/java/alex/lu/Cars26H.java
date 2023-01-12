@@ -1,23 +1,15 @@
 package alex.lu;
 
-public class Cars {
+public class Cars26H {
     private String brand;
     private String model;
 
-    public Cars() {
+    public Cars26H() {
     }
 
-    public Cars(String brand, String model) {
+    public Cars26H(String brand, String model) {
         this.brand = brand;
         this.model = model;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getModel() {
-        return model;
     }
 
     @Override
