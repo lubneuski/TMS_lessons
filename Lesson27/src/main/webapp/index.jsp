@@ -64,16 +64,16 @@
         </tr>
     </thead>
     <tbody>
-            <c:forEach items="${car27}" var="car27">
+            <c:forEach items="${car}" var="car">
                 <form action="delete" method="post">
                     <tr>
-                        <input type="hidden" name="id" value="${car27.id}">
-                        <th scope="row">${car27.id}</th>
-                        <td>${car27.brand}</td>
-                        <td>${car27.model}</td>
+                        <input type="hidden" name="id" value="${car.id}">
+                        <th scope="row">${car.id}</th>
+                        <td>${car.brand}</td>
+                        <td>${car.model}</td>
                         <td><input type="submit" value="delete"></td>
 <%--                <form action="update" method="post">--%>
-<%--                    <input type="hidden" name="id" value="${car27.id}">--%>
+<%--                    <input type="hidden" name="id" value="${car.id}">--%>
 <%--                    <td><input type="submit" value="Update"></td>--%>
 <%--                </form>--%>
                     </tr>

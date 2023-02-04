@@ -7,18 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/add")
-public class AddCarServlet27 extends HttpServlet {
+@WebServlet("/update")
+public class UpdateCarServlet extends HttpServlet {
 
-    CarService27 service = new CarServiceImpl27();
+    CarService service = new CarServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id =req.getParameter("id");
+        String id = req.getParameter("id");
         String brand = req.getParameter("brand");
         String model = req .getParameter("model");
-        Car27 car27 = new Car27(id,brand,model);
-        service.save(car27);
-        resp.sendRedirect("/all");
+        service.update(new Car(id, brand, model));
+        req.getRequestDispatcher("/all").forward(req,resp);
     }
 }

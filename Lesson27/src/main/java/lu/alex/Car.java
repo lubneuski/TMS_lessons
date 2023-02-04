@@ -1,11 +1,11 @@
 package lu.alex;
 
-public class Car27 {
+public class Car {
     private String id;
     private String brand;
     private String model;
 
-    public Car27(String id, String brand, String model) {
+    public Car(String id, String brand, String model) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -25,7 +25,7 @@ public class Car27 {
 
     @Override
     public String toString() {
-        return "Car27{" +
+        return "Car {" +
                 "id='" + id + '\'' +
                 ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
