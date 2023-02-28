@@ -16,7 +16,7 @@ public class CacheCarServiceImpl implements CarService {
 
     @Override
     public void save(Car car) {
-        if (carsCache.contains(car)){
+        if (service.equals(car)){
             System.out.println("Tha Car already exist.");
         } else {
             service.save(car);
